@@ -27,7 +27,6 @@
 #include <duchain/tests/benchmarks.h>
 #include <parser/parser.h>
 
-
 QTEST_MAIN(ruby::Benchmarks)
 
 using namespace KDevelop;
@@ -36,7 +35,25 @@ namespace ruby
 
 Benchmarks::Benchmarks()
 {
-    /* There's nothing to do here */
+    // To be able to test without installing to system dirs, we need to have builtins.rb readable from QStandardPaths::GenericLocation.
+    QStandardPaths::setTestModeEnabled(true);
+
+    QString genericDataLocation = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+    QString docDir = genericDataLocation + "/kdevrubysupport/documentation";
+    QString destFile = docDir + "/builtins.rb";
+
+    if (!QDir(docDir).exists()) {
+        QDir().mkpath(docDir);
+    }
+
+    if (QFile::exists(destFile)) {
+        QFile::remove(destFile);
+    }
+
+    QString fromPath = QCoreApplication::applicationDirPath() + "/../../../documentation";
+    bool ok = QFile::copy(fromPath + "/builtins.rb", destFile);
+
+    Q_ASSERT(ok);
 }
 
 const QByteArray Benchmarks::getBuiltinsFile()
