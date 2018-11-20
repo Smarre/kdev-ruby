@@ -131,6 +131,9 @@ KDEVRUBYDUCHAIN_EXPORT int nodeListSize(Node *node);
 /// @returns the QualifiedIdentifier of the given @p ast.
 KDEVRUBYDUCHAIN_EXPORT const KDevelop::QualifiedIdentifier getIdentifier(const Ast *ast);
 
+/// @returns the Identifier of the given @p ast.
+KDEVRUBYDUCHAIN_EXPORT const KDevelop::Identifier getUnqualifiedIdentifier(const Ast *ast);
+
 /**
  * @returns true if the given name belongs to a variable that has been
  * declared in the given DUContext.

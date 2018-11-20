@@ -508,7 +508,7 @@ void DeclarationBuilder::visitAssignmentStatement(Ast *node)
             if (alias.at(i)) {
                 DUChainWriteLocker wlock;
                 RangeInRevision range = getNameRange(aux);
-                QualifiedIdentifier id = getIdentifier(aux);
+                Identifier id = getUnqualifiedIdentifier(aux);
                 AliasDeclaration *d = openDeclaration<AliasDeclaration>(id, range);
                 d->setAliasedDeclaration(declarations.at(i).data());
                 closeDeclaration();
@@ -780,7 +780,7 @@ T * DeclarationBuilder::reopenDeclaration(const QualifiedIdentifier &id,
     if (!res) {
         DUChainWriteLocker lock;
         injectContext(context);
-        res = openDeclaration<T>(id, range);
+        res = openDeclaration<T>(id.last(), range);
         closeInjectedContext();
     }
     return static_cast<T*>(res);
@@ -825,7 +825,8 @@ MethodDeclaration * DeclarationBuilder::reopenDeclaration(const QualifiedIdentif
     if (!res) {
         DUChainWriteLocker lock;
         injectContext(ctx);
-        res = openDeclaration<MethodDeclaration>(id, range);
+        // TODO: inspect if this is what is wanted; original function does this
+        res = openDeclaration<MethodDeclaration>(id.last(), range);
         closeInjectedContext();
     }
     return static_cast<MethodDeclaration *>(res);
@@ -908,12 +909,13 @@ void DeclarationBuilder::declareVariable(const QualifiedIdentifier &id,
     node->tree = aux;
 }
 
+// TODO: check if changing id to Identifier would make sense.
 void DeclarationBuilder::aliasMethodDeclaration(const QualifiedIdentifier &id,
                                                 const RangeInRevision &range,
                                                 const MethodDeclaration *decl)
 {
     setComment(decl->comment());
-    MethodDeclaration *alias = openDeclaration<MethodDeclaration>(id, range);
+    MethodDeclaration *alias = openDeclaration<MethodDeclaration>(id.last(), range);
     alias->setType(decl->type<FunctionType>());
     closeDeclaration();
 }

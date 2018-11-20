@@ -310,6 +310,12 @@ const QualifiedIdentifier getIdentifier(const Ast *ast)
     return KDevelop::QualifiedIdentifier(nameAst.value);
 }
 
+const Identifier getUnqualifiedIdentifier(const Ast *ast)
+{
+    NameAst nameAst(ast);
+    return KDevelop::Identifier(nameAst.value);
+}
+
 bool declaredIn(const QByteArray &name, DUContextPointer context)
 {
     DUChainReadLocker lock;
