@@ -1136,6 +1136,7 @@ void TestDUChain::checkSubClassing1()
     // Base
     ModuleDeclaration *base = dynamic_cast<ModuleDeclaration *>(top->localDeclarations().first());
     QVERIFY(base);
+    // TODO: Check why this wants to say there is child contexts; the code is old so kdev api probably has changed.
     QCOMPARE(base->internalContext()->childContexts().count(), 0);
     QCOMPARE(base->internalContext()->importedParentContexts().count(), 0);
     QCOMPARE(base->internalContext()->localScopeIdentifier(), QualifiedIdentifier("Base"));
