@@ -319,8 +319,8 @@ const Identifier getUnqualifiedIdentifier(const Ast *ast)
 bool declaredIn(const QByteArray &name, DUContextPointer context)
 {
     DUChainReadLocker lock;
-    KDevelop::QualifiedIdentifier id = QualifiedIdentifier(QString(name));
-    QList<Declaration *> decls = context->findLocalDeclarations(id.last());
+    KDevelop::Identifier id = Identifier(QString(name));
+    QList<Declaration *> decls = context->findLocalDeclarations(id);
     return !decls.empty();
 }
 
