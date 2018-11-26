@@ -18,7 +18,7 @@
 
 # Returns a String containing the absolute path to the ruby parser.
 def parser
-  File.join(File.dirname(__FILE__), '../ruby-parser')
+  File.join(File.dirname(__FILE__), '../../build/parser/ruby-parser')
 end
 
 describe 'Parser' do
