@@ -1941,5 +1941,36 @@ void TestDUChain::rspecIncludeIsNormalFunction() {
 
 //END: Include & Extend
 
+/*
+void TestDUChain::debug()
+{
+    QString path = "/home/smar/Paketit/scm/kdev-ruby/documentation/builtins.rb";
+    auto indexedPath = KDevelop::IndexedString(path);
+
+    TopDUContext *top = DUChain::self()->waitForUpdate(indexedPath,
+                                            static_cast<TopDUContext::Features>(TopDUContext::AllDeclarationsContextsAndUses | TopDUContext::ForceUpdate));
+    QVERIFY(top);
+    DUChainReleaser releaser(top);
+    DUChainWriteLocker lock;
+
+    // Check for the moduleMixins list of the class Klass
+    Declaration *obj = top->findLocalDeclarations(Identifier("Klass")).first();
+    ModuleDeclaration *md = dynamic_cast<ModuleDeclaration *>(obj);
+    QVERIFY(md);
+    QCOMPARE(md->internalContext()->localDeclarations(md->topContext()).size(), 1);
+    QCOMPARE(md->moduleMixinsSize(), 1u);
+    QVERIFY(!md->moduleMixins()[0].included);
+    QCOMPARE(md->moduleMixins()[0].module.type<StructureType>()->qualifiedIdentifier(), QualifiedIdentifier("AA::BB"));
+
+    // Check for the mixers list of the module AA::BB
+    obj = top->localDeclarations().at(0)->internalContext()->localDeclarations().first();
+    md = dynamic_cast<ModuleDeclaration *>(obj);
+    QVERIFY(md);
+    QCOMPARE(md->moduleMixinsSize(), 0u);
+    QCOMPARE(md->mixersSize(), 1u);
+    QCOMPARE(md->mixers()[0].module.type<StructureType>()->qualifiedIdentifier(), QualifiedIdentifier("Klass"));
+}
+*/
+
 }
 
