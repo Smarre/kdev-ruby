@@ -33,8 +33,12 @@
 #include <duchain/loader.h>
 #include <duchain/rubyducontext.h>
 
+#include <parser/parser.h>
+
 using namespace KDevelop;
 using namespace ruby;
+
+Q_LOGGING_CATEGORY(CONTEXTBUILDER, "kdevelop.plugins.kdev-ruby.contextbuilder");
 
 ContextBuilder::ContextBuilder()
 {
@@ -249,7 +253,11 @@ void ContextBuilder::visitRequire(Ast *node, bool relative)
         return;
     }
 
+    //auto parser = m_editor->parseSession();
+    //qDebug() << node->foundProblems;
+
     Path path = Loader::getRequiredFile(aux, m_editor, relative);
+    qCDebug(CONTEXTBUILDER) << "Requiring file" << m_editor->tokenToString(aux) << "from path" << path << "(relatively:" << relative << ")";
     if (!path.isValid()) {
         appendProblem(
             aux,

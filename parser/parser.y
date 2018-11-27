@@ -45,6 +45,8 @@ extern char *strdup(const char *s);
 
 #define SSIZE 256
 #define LSIZE (SSIZE << 2)
+#define YYDEBUG 1
+/*yydebug = 1;*/
 
 
 /* The state bits, as defined below, have been extracted from the MRI. */

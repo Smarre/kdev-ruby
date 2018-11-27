@@ -40,6 +40,7 @@ include_directories(
 )
 
 add_definitions(-DQT_NO_URL_CAST_FROM_STRING)
+add_definitions(-DBUILD_TESTS=\"1\")
 
 add_definitions( -DTRANSLATION_DOMAIN=\"kdevruby\" )
 

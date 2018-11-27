@@ -68,7 +68,9 @@ Ast * Parser::parse()
     opts.version = m_version;
 
     // Let's call the parser ;)
+    //rb_debug_file(&opts);
     struct ast_t *res = rb_compile_file(&opts);
+    print_node(res->tree);
     ast = new Ast(res->tree);
     if (res->unrecoverable) {
         for (aux = res->errors; aux; aux = aux->next) {

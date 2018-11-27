@@ -168,8 +168,11 @@ private slots:
     void problemOnInvalidMixin();
     void rspecIncludeIsNormalFunction();
 
+    // Require
+    void requireRelative();
+
     // Sometimes it’s useful to test with existing script to see where the thing fails
-    //void debug();
+    void debug();
 };
 
 }

@@ -29,6 +29,8 @@
 #include <language/duchain/problem.h>
 
 #include <language/interfaces/iastcontainer.h>
+#include <language/duchain/problem.h>
+#include <language/editor/documentrange.h>
 
 // Ruby
 #include <duchain/tests/duchain.h>
@@ -1941,10 +1943,32 @@ void TestDUChain::rspecIncludeIsNormalFunction() {
 
 //END: Include & Extend
 
-/*
+
+/**
+ * require_relative differs a bit from standard require, but the files should be handled nevertheless.
+ */
+void TestDUChain::requireRelative() {
+    QByteArray code("require_relative(../invalid/file)");
+    TopDUContext *top = parse(code, "requireRelative");
+    QVERIFY(top);
+    DUChainReleaser releaser(top);
+    DUChainWriteLocker lock;
+
+    KDevelop::DUContext *childContext = top->childContexts().first();
+    KDevelop::Declaration *declaration = childContext->localDeclarations().first();
+    qDebug() << declaration->comment();
+
+    Declaration *dec1 = top->localDeclarations().at(0);
+    QVERIFY(dec1->type<StructureType>());
+    QCOMPARE(dec1->type<StructureType>()->qualifiedIdentifier(), QualifiedIdentifier("Fixnum"));
+}
+
+//END: Include & Extend
+
 void TestDUChain::debug()
 {
-    QString path = "/home/smar/Paketit/scm/kdev-ruby/documentation/builtins.rb";
+    //QString path = "/home/smar/Paketit/scm/kdev-ruby/documentation/builtins.rb";
+    QString path = "/home/smar/Projektit/workity/po/restaurant_generator/lib/restaurant_generator/parsers/parse_category.rb";
     auto indexedPath = KDevelop::IndexedString(path);
 
     TopDUContext *top = DUChain::self()->waitForUpdate(indexedPath,
@@ -1970,7 +1994,7 @@ void TestDUChain::debug()
     QCOMPARE(md->mixersSize(), 1u);
     QCOMPARE(md->mixers()[0].module.type<StructureType>()->qualifiedIdentifier(), QualifiedIdentifier("Klass"));
 }
-*/
+
 
 }
 

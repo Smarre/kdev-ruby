@@ -49,6 +49,10 @@ struct Node * alloc_node(int kind, struct Node *l, struct Node *r)
     n->pos.offset = 0;
     n->pos.start_line = n->pos.end_line = -1;
     n->pos.start_col = n->pos.end_col = -1;
+
+#ifdef BUILD_TESTS
+    printf("Allocated %p { kind: %i, l: %p, r: %p }\n", n, kind, l, r);
+#endif
     return n;
 }
 
@@ -56,6 +60,9 @@ struct Node * alloc_cond(int kind, struct Node *cond, struct Node *l, struct Nod
 {
     struct Node *n = alloc_node(kind, l, r);
     n->cond = cond;
+#ifdef BUILD_TESTS
+    printf(":: Condition for node: %p\n", cond);
+#endif
     return n;
 }
 
@@ -64,6 +71,9 @@ struct Node * alloc_ensure(int kind, struct Node *l, struct Node *r,
 {
     struct Node *n = alloc_cond(kind, els, l, r);
     n->ensure = ensure;
+#ifdef BUILD_TESTS
+    printf(":: Ensure for node: %p\n", ensure);
+#endif
     return n;
 }
 
@@ -76,6 +86,9 @@ struct Node * create_list(struct Node *head, struct Node *tail)
 {
     head->next = tail;
     head->last = tail->last;
+#ifdef BUILD_TESTS
+    printf("Creating list for node %p with tail %p (last: %p)\n", head, tail, tail->last);
+#endif
     return head;
 }
 
@@ -86,6 +99,10 @@ struct Node * update_list(struct Node *head, struct Node *tail)
     (head->last == NULL) ? (head->next = tail) : (head->last->next = tail);
     tail->next = NULL;
     head->last = tail;
+
+#ifdef BUILD_TESTS
+    printf("Updated list for node %p with tail %p (last: %p)\n", head, tail, tail->last);
+#endif
     return head;
 }
 
@@ -95,6 +112,9 @@ struct Node * concat_list(struct Node *head, struct Node *tail)
         return head;
     (head->last == NULL) ? (head->next = tail) : (head->last->next = tail);
     head->last = (tail->last) ? tail->last : tail;
+#ifdef BUILD_TESTS
+    printf("Concatting list for node %p with tail %p (last: %p)\n", head, tail, tail->last);
+#endif
     return head;
 }
 

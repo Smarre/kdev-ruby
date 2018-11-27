@@ -321,6 +321,10 @@ bool declaredIn(const QByteArray &name, DUContextPointer context)
     DUChainReadLocker lock;
     KDevelop::Identifier id = Identifier(QString(name));
     QList<Declaration *> decls = context->findLocalDeclarations(id);
+    qDebug() << decls;
+    if(name == "require_relative") {
+        qDebug() << name;
+    }
     return !decls.empty();
 }
 

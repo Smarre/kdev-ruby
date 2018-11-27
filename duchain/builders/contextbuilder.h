@@ -23,11 +23,15 @@
 #ifndef RUBY_CONTEXT_BUILDER_H
 #define RUBY_CONTEXT_BUILDER_H
 
+#include <QLoggingCategory>
+
 #include <duchain/duchainexport.h>
 #include <language/duchain/builders/abstractcontextbuilder.h>
 #include <language/duchain/problem.h>
 #include <parser/astvisitor.h>
 #include <util/path.h>
+
+Q_DECLARE_LOGGING_CATEGORY(CONTEXTBUILDER);
 
 namespace ruby {
 

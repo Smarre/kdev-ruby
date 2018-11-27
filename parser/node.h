@@ -250,6 +250,7 @@ struct options_t {
  * @return an AST that represents the code.
  */
 KDEVRUBYPARSER_EXPORT struct ast_t * rb_compile_file(struct options_t *opts);
+int rb_debug_file(struct options_t *opts);
 
 /**
  * Free an ast_t.

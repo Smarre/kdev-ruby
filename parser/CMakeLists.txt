@@ -1,5 +1,5 @@
 
-bison_target(RUBY_PARSER parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser_gen.c)
+bison_target(RUBY_PARSER parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser_gen.c COMPILE_FLAGS "--graph=/tmp/bison.dot --xml=/tmp/bison.xml")
 
 set(rubyparser_SRCS
     node.c
